@@ -1,0 +1,29 @@
+# Project 4: Admin Dashboard
+
+## Description
+This project implements an admin dashboard for managing products, orders, and users, as well as providing analytics to track business performance. It focuses on building efficient admin functionality with secure access control and RESTful APIs for seamless interaction.
+
+## Features
+- **Admin Management**:
+  - Enable admins to create, update, delete, and view products.
+  - Manage customer orders by tracking status (e.g., pending, shipped, completed).
+  - View and manage user accounts, including roles and permissions.
+
+- **Analytics Dashboard**:
+  - Display sales metrics such as total revenue, monthly sales trends, and top-selling products.
+  - Track user activity, including active users and frequent buyers.
+  - Provide API endpoints to fetch and display analytics data.
+
+- **Role-Based Access Control**:
+  - Ensure only authorized admin users can access sensitive dashboard features.
+  - Restrict actions like product or order updates to users with the appropriate role.
+
+- **RESTful APIs**:
+  - APIs for admin actions, such as:
+    - `POST /admin/products`: Add a new product.
+    - `GET /admin/orders`: View order details.
+    - `PUT /admin/users/<user_id>`: Update user roles or deactivate accounts.
+
+- **Optional Front-End**:
+  - Basic admin dashboard interface for managing products, orders, and users.
+  - Visualizations of analytics using charts or tables.
