@@ -1,11 +1,11 @@
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
-from models import Product, CartItem, Order
+from models import Product, Order, User
 import sys
 
 # Initialize the database
+from models import Base
 Base.metadata.create_all(bind=engine)
-
 
 def fetch_products(db: Session):
     """Display all available products."""
@@ -113,8 +113,9 @@ def admin_check(user):
     """Check if the user is an admin."""
     return user.role == "admin"
 
-
+# =========================
 # Main Terminal UI
+# =========================
 
 def main():
     db = SessionLocal()
