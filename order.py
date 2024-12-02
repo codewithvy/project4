@@ -6,9 +6,6 @@ import sys
 # Initialize the database
 Base.metadata.create_all(bind=engine)
 
-# =========================
-# Helper Functions
-# =========================
 
 def fetch_products(db: Session):
     """Display all available products."""
@@ -116,9 +113,8 @@ def admin_check(user):
     """Check if the user is an admin."""
     return user.role == "admin"
 
-# =========================
+
 # Main Terminal UI
-# =========================
 
 def main():
     db = SessionLocal()
