@@ -1,15 +1,23 @@
-from pydantic import BaseModel
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy.orm import relationship
+from database import Base
 
-# Product Model
-class Product(BaseModel):
-    id: int = None
-    name: str
-    description: str
-    price: float
-    inventory: int
-    category_id: int
+class Category(Base):
+    __tablename__ = "categories"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
 
-# Category Model
-class Category(BaseModel):
-    id: int = None
-    name: str
+    products = relationship("Product", back_populates="category")
+
+
+class Product(Base):
+    __tablename__ = "products"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    description = Column(String)
+    price = Column(Float)
+    inventory = Column(Integer)
+    category_id = Column(Integer, ForeignKey("categories.id"))
+
+    category = relationship("Category", back_populates="products")
+
