@@ -4,6 +4,49 @@ from typing import List
 from database import engine, SessionLocal
 from models import Base, Product, Category
 from pydantic import BaseModel
+from fastapi import Depends, HTTPException
+from database import get_db
+from ShoppingCart_ import ShoppingCart
+
+
+
+
+# Create the database tables
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI()
+
+# Shopping Cart Routes
+@app.post("/cart/add")
+def add_to_cart(product_id: int, quantity: int, db: Session = Depends(get_db)):
+    cart = ShoppingCart(db)
+    try:
+        cart.add_item(product_id, quantity)
+        return {"message": "Item added to cart", "cart": cart.get_items()}
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.delete("/cart/remove/{product_id}")
+def remove_from_cart(product_id: int, db: Session = Depends(get_db)):
+    cart = ShoppingCart(db)
+    cart.remove_item(product_id)
+    return {"message": "Item removed from cart", "cart": cart.get_items()}
+
+@app.put("/cart/update/{product_id}")
+def update_cart_quantity(product_id: int, quantity: int, db: Session = Depends(get_db)):
+    cart = ShoppingCart(db)
+    try:
+        cart.update_quantity(product_id, quantity)
+        return {"message": "Cart updated", "cart": cart.get_items()}
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/cart/total")
+def get_cart_total(db: Session = Depends(get_db)):
+    cart = ShoppingCart(db)
+    total = cart.get_total()
+    return {"total": total}
+
 
 # Pydantic schemas for input/output
 class ProductSchema(BaseModel):
