@@ -7,6 +7,7 @@ import sys
 from models import Base
 Base.metadata.create_all(bind=engine)
 
+
 def fetch_products(db: Session):
     """Display all available products."""
     products = db.query(Product).all()
@@ -100,7 +101,26 @@ def login_user(db: Session):
     username = input("Enter your username: ").strip()
     user = db.query(User).filter_by(username=username).first()
 
+    if not user:
+        print("User not found. Please try again or register.")
+        return None
+
     print(f"Welcome, {username}!")
+    return user
+
+def register_user(db: Session):
+    """Register a new user."""
+    username = input("Enter a username: ").strip()
+    password = input("Enter a password: ").strip()
+
+    if db.query(User).filter_by(username=username).first():
+        print("Username already exists. Please try logging in.")
+        return None
+
+    user = User(username=username, password=password)  # Add hashing if needed
+    db.add(user)
+    db.commit()
+    print("Registration successful! You can now log in.")
     return user
 
 def admin_check(user):
@@ -108,7 +128,6 @@ def admin_check(user):
     return user.role == "admin"
 
 # Main Terminal UI
-# =========================
 
 def main():
     db = SessionLocal()
@@ -118,12 +137,17 @@ def main():
         while not current_user:
             print("\n=== Welcome to the E-Commerce Store ===")
             print("1. Login")
-            print("2. Exit")
+            print("2. Register")
+            print("3. Exit")
             choice = input("Enter your choice: ")
 
             if choice == "1":
                 current_user = login_user(db)
+                if not current_user:
+                    print("Login failed. Please try again.")
             elif choice == "2":
+                register_user(db)
+            elif choice == "3":
                 print("Goodbye!")
                 sys.exit()
             else:
