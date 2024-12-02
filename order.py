@@ -93,18 +93,12 @@ def update_order_status(db: Session):
     db.commit()
     print(f"\nOrder ID {order_id} status updated to '{new_status}'.")
 
-# =========================
 # User Authentication
-# =========================
 
 def login_user(db: Session):
     """Login a user."""
     username = input("Enter your username: ").strip()
     user = db.query(User).filter_by(username=username).first()
-
-    if not user:
-        print("User not found. Please register.")
-        return None
 
     print(f"Welcome, {username}!")
     return user
@@ -113,7 +107,6 @@ def admin_check(user):
     """Check if the user is an admin."""
     return user.role == "admin"
 
-# =========================
 # Main Terminal UI
 # =========================
 
