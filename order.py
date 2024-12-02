@@ -155,7 +155,7 @@ def main():
 
         while True:
             if admin_check(current_user):
-                print("\n=== Admin Menu ===")
+                print("\n=== Menu ===")
                 print("1. View All Orders")
                 print("2. Update Order Status")
                 print("3. View Products")
