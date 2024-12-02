@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
-from models import Base, Order, Product, User
+from models import Base, Product
 import sys
 
 # Initialize the database
