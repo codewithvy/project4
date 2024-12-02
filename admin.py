@@ -25,27 +25,36 @@ def admin_menu():
 
 # Function to simulate viewing all users
 def view_users():
-    # Placeholder for the actual logic to retrieve and display users
     print("\n[View Users]")
-    print("User 1: admin")
-    print("User 2: user1")
-    print("User 3: user2")
-    # Add logic to fetch and display users from your data storage
+    # Placeholder for actual user list retrieval
+    users = ["admin", "user1", "user2"]  # Example hardcoded users
+    if users:
+        print("Current Users:")
+        for user in users:
+            print(f"- {user}")
+    else:
+        print("No users found.")
 
 # Function to simulate adding a new user
 def add_user():
     print("\n[Add User]")
     username = input("Enter the new username: ")
-    # Placeholder for the logic to add a user to your data storage
-    print(f"User '{username}' has been added successfully!")
+    # Simulate adding user (extend functionality here)
+    if username:
+        print(f"User '{username}' has been added successfully!")
+    else:
+        print("Username cannot be empty.")
 
 # Function to simulate deleting a user
 def delete_user():
     print("\n[Delete User]")
     username = input("Enter the username to delete: ")
-    # Placeholder for the logic to delete a user from your data storage
-    print(f"User '{username}' has been deleted successfully!")
+    # Simulate deleting user (extend functionality here)
+    if username:
+        print(f"User '{username}' has been deleted successfully!")
+    else:
+        print("Username cannot be empty.")
 
-# Main entry point
+# Entry point of the program
 if __name__ == "__main__":
     admin_menu()
